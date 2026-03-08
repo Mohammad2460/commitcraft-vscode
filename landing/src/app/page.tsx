@@ -40,6 +40,7 @@ export default function HomePage() {
           <a href="#features" className="nav-link" style={{ color: '#888', fontSize: '14px', fontWeight: 500 }}>Features</a>
           <a href="#pricing" className="nav-link" style={{ color: '#888', fontSize: '14px', fontWeight: 500 }}>Pricing</a>
           <a href="#faq" className="nav-link" style={{ color: '#888', fontSize: '14px', fontWeight: 500 }}>FAQ</a>
+          <Link href="/blog" className="nav-link" style={{ color: '#888', fontSize: '14px', fontWeight: 500 }}>Blog</Link>
           <Link href="/dashboard" className="nav-link" style={{ color: '#888', fontSize: '14px', fontWeight: 500 }}>Dashboard</Link>
         </div>
 
