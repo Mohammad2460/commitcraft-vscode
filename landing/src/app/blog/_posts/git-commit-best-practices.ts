@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: 'git-commit-best-practices',
   title: 'Git Commit Best Practices: A Practical Checklist for Developers and Teams',
   description: 'A practical, opinionated checklist of git commit best practices that actually improve code review speed and team velocity. Real examples, no fluff.',
-  publishedAt: 'March 8, 2025',
+  publishedAt: 'March 8, 2026',
   readTime: '7 min read',
   keywords: ['git commit best practices', 'commit message best practices', 'git workflow best practices', 'git tips', 'better commits'],
   content: [

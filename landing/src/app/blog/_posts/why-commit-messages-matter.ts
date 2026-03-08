@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: 'why-commit-messages-matter',
   title: 'Why Git Commit Messages Matter (More Than Most Developers Think)',
   description: 'The real cost of bad commit messages on debugging time, code reviews, and long-term maintainability. With concrete examples and the case for automation.',
-  publishedAt: 'March 8, 2025',
+  publishedAt: 'March 8, 2026',
   readTime: '5 min read',
   keywords: ['why commit messages matter', 'git commit importance', 'git history best practices', 'developer productivity', 'code documentation git'],
   content: [

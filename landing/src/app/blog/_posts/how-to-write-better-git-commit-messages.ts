@@ -2,9 +2,9 @@ import type { BlogPost } from './types'
 
 export const post: BlogPost = {
   slug: 'how-to-write-better-git-commit-messages',
-  title: 'How to Write Better Git Commit Messages (Complete 2025 Guide)',
+  title: 'How to Write Better Git Commit Messages (Complete 2026 Guide)',
   description: 'A practical guide to writing meaningful git commit messages that your teammates and future self will thank you for. Includes Conventional Commits, real examples, and automation tips.',
-  publishedAt: 'March 8, 2025',
+  publishedAt: 'March 8, 2026',
   readTime: '10 min read',
   keywords: ['git commit message', 'how to write commit messages', 'conventional commits', 'git best practices', 'commit message format'],
   content: [

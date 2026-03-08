@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: 'ai-git-commits-vs-code',
   title: 'AI Commit Message Generators for VS Code: How They Work and Which to Use',
   description: 'A technical look at how AI commit message generators read your code changes and produce semantic commits. Comparison of VS Code extension options and how to choose the right one.',
-  publishedAt: 'March 8, 2025',
+  publishedAt: 'March 8, 2026',
   readTime: '6 min read',
   keywords: ['ai commit message generator', 'ai commit vscode', 'auto generate commit message', 'git commit ai', 'vscode commit extension'],
   content: [

@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: 'conventional-commits-guide',
   title: 'Conventional Commits: A Complete Guide for Development Teams',
   description: 'Everything you need to know about Conventional Commits — the standard format for git commit messages adopted by thousands of teams. Includes all types, examples, tooling, and automation.',
-  publishedAt: 'March 8, 2025',
+  publishedAt: 'March 8, 2026',
   readTime: '8 min read',
   keywords: ['conventional commits', 'conventional commits format', 'semantic commits', 'git commit standard', 'commit types'],
   content: [
