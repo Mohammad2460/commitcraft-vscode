@@ -56,11 +56,11 @@ export async function generateCommitCommand(
       }
 
       const proceed = await vscode.window.showWarningMessage(
-        'CommitCraft: No staged changes. Generate from all unstaged changes?',
-        'Yes, Generate',
+        'CommitCraft: No staged changes. Tip: staging your changes first gives better results.',
+        'Generate Anyway',
         'Cancel'
       )
-      if (proceed !== 'Yes, Generate') return
+      if (proceed !== 'Generate Anyway') return
 
       diff = await gitService.getUnstagedDiff()
       usingUnstaged = true
@@ -111,14 +111,8 @@ export async function generateCommitCommand(
 
     if (err instanceof BackendError) {
       if (err.status === 402 || err.code === 'quota_exceeded') {
+        // Show upgrade only in panel — no duplicate notification
         panel.showError('Monthly limit reached — upgrade to Pro for unlimited generations.', true)
-        const action = await vscode.window.showErrorMessage(
-          'CommitCraft: Free tier limit reached (20/month). Upgrade for unlimited.',
-          'Upgrade to Pro — $4.99/mo'
-        )
-        if (action) {
-          vscode.env.openExternal(vscode.Uri.parse(UPGRADE_URL))
-        }
       } else if (err.status === 401) {
         panel.showError('Authentication expired. Please sign in again.')
         vscode.window.showErrorMessage('CommitCraft: Your session expired. Please sign in again.', 'Sign In').then(action => {

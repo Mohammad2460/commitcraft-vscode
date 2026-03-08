@@ -86,7 +86,7 @@ export class BackendClient {
     }, apiKey)
   }
 
-  async register(email: string): Promise<{ message: string; isExisting: boolean }> {
+  async register(email: string): Promise<{ message: string; isExisting: boolean; apiKey?: string }> {
     // Register doesn't need API key
     const url = `${this.baseUrl}/api/auth/register`
     const response = await fetch(url, {

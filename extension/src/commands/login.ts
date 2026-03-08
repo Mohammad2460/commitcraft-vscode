@@ -9,7 +9,7 @@ export async function loginCommand(
 ): Promise<void> {
   // Step 1: Ask for email
   const email = await vscode.window.showInputBox({
-    prompt: 'Enter your email to get your free API key',
+    prompt: 'Enter your email to create your free account',
     placeHolder: 'you@example.com',
     validateInput: (value) => {
       if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
@@ -21,24 +21,42 @@ export async function loginCommand(
 
   if (!email) return
 
-  // Step 2: Register (send API key to email)
+  // Step 2: Register — API key comes back in the response directly
+  let apiKey: string | undefined
   try {
-    await vscode.window.withProgress({
+    const result = await vscode.window.withProgress({
       location: vscode.ProgressLocation.Notification,
-      title: 'CommitCraft: Sending API key to your email...',
+      title: 'CommitCraft: Creating your account...',
       cancellable: false
     }, async () => {
       const client = new BackendClient()
-      await client.register(email)
+      return await client.register(email)
     })
+    apiKey = result.apiKey
   } catch (err) {
-    vscode.window.showErrorMessage(`CommitCraft: Failed to send API key — ${err instanceof Error ? err.message : 'Unknown error'}`)
+    vscode.window.showErrorMessage(
+      `CommitCraft: Failed to create account — ${err instanceof Error ? err.message : 'Unknown error'}`
+    )
     return
   }
 
-  // Step 3: Ask for API key
-  const apiKey = await vscode.window.showInputBox({
-    prompt: 'Check your email and paste your API key here',
+  // Step 3: If API key came back directly, sign in immediately — no email needed
+  if (apiKey) {
+    const success = await authService.signIn(apiKey)
+    if (success) {
+      const state = authService.userState
+      statusBar.update(state)
+      statusBar.resetCommand()
+      vscode.window.showInformationMessage(
+        `CommitCraft: Welcome! You have ${state.isSignedIn && state.tier === 'free' ? `${state.limit - state.used} free generations` : 'unlimited generations'} this month. Your key was also sent to ${email}.`
+      )
+      return
+    }
+  }
+
+  // Fallback: ask them to paste the key from email (legacy path)
+  const pastedKey = await vscode.window.showInputBox({
+    prompt: 'Paste your API key (check your email)',
     placeHolder: 'cc_live_...',
     password: true,
     validateInput: (value) => {
@@ -49,10 +67,9 @@ export async function loginCommand(
     }
   })
 
-  if (!apiKey) return
+  if (!pastedKey) return
 
-  // Step 4: Verify and store
-  const success = await authService.signIn(apiKey)
+  const success = await authService.signIn(pastedKey)
   if (success) {
     const state = authService.userState
     statusBar.update(state)
@@ -61,6 +78,6 @@ export async function loginCommand(
       `CommitCraft: Welcome! You have ${state.isSignedIn && state.tier === 'free' ? `${state.limit - state.used} free generations` : 'unlimited generations'} this month.`
     )
   } else {
-    vscode.window.showErrorMessage('CommitCraft: Invalid API key. Please check and try again.')
+    vscode.window.showErrorMessage('CommitCraft: Invalid API key. Please try again.')
   }
 }

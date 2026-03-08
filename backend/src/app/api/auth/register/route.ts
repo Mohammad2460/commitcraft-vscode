@@ -23,10 +23,13 @@ export async function POST(req: NextRequest) {
       .single()
 
     if (existingUser) {
-      // Resend their existing key
-      await sendApiKeyEmail(email, existingUser.api_key)
+      // Send email too (best effort, don't fail if email breaks)
+      sendApiKeyEmail(email, existingUser.api_key).catch(e =>
+        console.error('[register] Email failed:', e)
+      )
       return NextResponse.json({
-        message: 'API key sent to your email. Check your inbox.',
+        message: 'Welcome back! Here is your API key.',
+        apiKey: existingUser.api_key,
         isExisting: true
       })
     }
@@ -44,10 +47,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Failed to create account' }, { status: 500 })
     }
 
-    await sendApiKeyEmail(email, apiKey)
+    // Send email too (best effort)
+    sendApiKeyEmail(email, apiKey).catch(e =>
+      console.error('[register] Email failed:', e)
+    )
 
     return NextResponse.json({
-      message: 'API key sent to your email. Check your inbox.',
+      message: 'Account created! Here is your API key.',
+      apiKey,
       isExisting: false
     })
   } catch (error) {

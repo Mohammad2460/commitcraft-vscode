@@ -25,12 +25,13 @@ export async function showUsageCommand(authService: AuthService): Promise<void> 
   const remaining = state.limit - state.used
   const resetDate = new Date(state.resetDate).toLocaleDateString()
 
+  const upgradeLabel = 'Upgrade to Pro — $4.99/mo'
   const action = await vscode.window.showInformationMessage(
     `CommitCraft: ${state.used}/${state.limit} generations used this month. ${remaining} remaining. Resets ${resetDate}.`,
-    ...(remaining <= 5 ? ['Upgrade to Pro — $4.99/mo'] : [])
+    upgradeLabel
   )
 
-  if (action === 'Upgrade to Pro — $4.99/mo') {
+  if (action === upgradeLabel) {
     vscode.env.openExternal(vscode.Uri.parse('https://commitcraft.ai/upgrade'))
   }
 }

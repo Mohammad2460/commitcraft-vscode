@@ -27,13 +27,19 @@ export class StatusBarManager implements vscode.Disposable {
       this.item.color = new vscode.ThemeColor('statusBarItem.prominentForeground')
     } else {
       const remaining = state.limit - state.used
-      const isLow = remaining <= 5
+      const isLow = remaining <= 10
+      const isEmpty = remaining <= 0
 
-      this.item.text = `$(git-commit) CommitCraft: ${state.used}/${state.limit}`
-      this.item.tooltip = `CommitCraft AI — ${remaining} generations remaining this month\n${state.email}\nClick to see usage`
+      this.item.text = isEmpty
+        ? `$(warning) CommitCraft: Limit reached`
+        : `$(git-commit) CommitCraft: ${state.used}/${state.limit}`
+      this.item.tooltip = isEmpty
+        ? `CommitCraft AI — Monthly limit reached\nUpgrade to Pro for unlimited generations\nClick to upgrade`
+        : `CommitCraft AI — ${remaining} generation${remaining === 1 ? '' : 's'} remaining this month\n${state.email}\n${isLow ? '⚠️ Running low — click to upgrade' : 'Click to see usage'}`
       this.item.backgroundColor = isLow
         ? new vscode.ThemeColor('statusBarItem.warningBackground')
         : undefined
+      this.item.command = isEmpty ? 'commitcraft.upgrade' : 'commitcraft.showUsage'
       this.item.color = undefined
     }
   }

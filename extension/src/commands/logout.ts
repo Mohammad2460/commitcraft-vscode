@@ -7,7 +7,7 @@ export async function logoutCommand(
   statusBar: StatusBarManager
 ): Promise<void> {
   const confirm = await vscode.window.showWarningMessage(
-    'CommitCraft: Sign out and remove your API key?',
+    'CommitCraft: Sign out? You can sign back in anytime with your email.',
     'Sign Out',
     'Cancel'
   )
