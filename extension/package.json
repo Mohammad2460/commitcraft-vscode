@@ -1,0 +1,118 @@
+{
+  "name": "commitcraft-ai",
+  "displayName": "CommitCraft AI",
+  "description": "AI-powered git commit messages, PR descriptions & changelogs — generated instantly from your diff",
+  "version": "0.1.0",
+  "publisher": "CommitCraftAI",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "SCM Providers"
+  ],
+  "keywords": [
+    "git",
+    "commit",
+    "ai",
+    "commit message",
+    "pr description",
+    "claude",
+    "conventional commits",
+    "changelog"
+  ],
+  "icon": "images/icon.png",
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "commitcraft.generate",
+        "title": "CommitCraft: Generate Commit Message",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "commitcraft.generatePR",
+        "title": "CommitCraft: Generate PR Description"
+      },
+      {
+        "command": "commitcraft.generateChangelog",
+        "title": "CommitCraft: Generate Changelog Entry"
+      },
+      {
+        "command": "commitcraft.login",
+        "title": "CommitCraft: Sign In"
+      },
+      {
+        "command": "commitcraft.logout",
+        "title": "CommitCraft: Sign Out"
+      },
+      {
+        "command": "commitcraft.showUsage",
+        "title": "CommitCraft: Show Usage & Quota"
+      },
+      {
+        "command": "commitcraft.upgrade",
+        "title": "CommitCraft: Upgrade to Pro"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "commitcraft.generate",
+        "key": "ctrl+shift+g ctrl+shift+m",
+        "mac": "cmd+shift+g cmd+shift+m"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "commitcraft.generate",
+          "group": "navigation",
+          "when": "scmProvider == git"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CommitCraft AI",
+      "properties": {
+        "commitcraft.backendUrl": {
+          "type": "string",
+          "default": "https://commitcraft-backend.vercel.app",
+          "description": "CommitCraft backend API URL"
+        },
+        "commitcraft.commitStyle": {
+          "type": "string",
+          "enum": ["conventional", "gitmoji", "simple"],
+          "enumDescriptions": [
+            "Conventional Commits format (feat:, fix:, docs:, etc.)",
+            "GitMoji format with emojis",
+            "Simple clear description"
+          ],
+          "default": "conventional",
+          "description": "Commit message style"
+        },
+        "commitcraft.includeBody": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include bullet point details in commit messages"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "compile": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.24.0",
+    "typescript": "^5.3.0",
+    "esbuild": "^0.20.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.0.0"
+  }
+}
