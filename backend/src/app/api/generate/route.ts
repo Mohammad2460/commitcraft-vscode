@@ -83,7 +83,7 @@ Respond with ONLY this JSON (no markdown fences):
 {"title": "Version X.X.X - Brief description", "bullets": ["Added: feature 1", "Fixed: bug 1", "Changed: something"]}`
   }
 
-  return ''
+  throw new Error(`Unhandled type: ${type}`)
 }
 
 function parseClaudeResponse(text: string): { title: string; bullets: string[] } {
@@ -121,6 +121,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'invalid type' }, { status: 400 })
     }
 
+    if (!body.branchName || typeof body.branchName !== 'string') {
+      return NextResponse.json({ message: 'branchName is required' }, { status: 400 })
+    }
+    if (body.branchName.length > 255) {
+      return NextResponse.json({ message: 'branchName too long' }, { status: 400 })
+    }
+    // Sanitize branch name for prompt injection - remove backticks and newlines
+    body.branchName = body.branchName.replace(/[`\n\r]/g, '').slice(0, 255)
+
     // Limit diff size
     if (body.diff.length > 50000) {
       return NextResponse.json({ message: 'diff too large (max 50KB)' }, { status: 400 })
@@ -134,8 +143,8 @@ export async function POST(req: NextRequest) {
     const prompt = buildPrompt(body)
 
     const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5',
-      max_tokens: 512,
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: body.type === 'commit' ? 512 : 1024,
       messages: [{ role: 'user', content: prompt }]
     })
 
@@ -153,9 +162,24 @@ export async function POST(req: NextRequest) {
 
   } catch (error: unknown) {
     console.error('[generate] Error:', error)
-    if (error instanceof Error && error.message.includes('API key')) {
-      return NextResponse.json({ message: 'AI service configuration error' }, { status: 500 })
+
+    // Handle Anthropic API errors specifically
+    if (error && typeof error === 'object' && 'status' in error) {
+      const apiError = error as { status: number; message: string }
+      if (apiError.status === 429) {
+        return NextResponse.json({ message: 'AI service rate limit reached, please try again', code: 'rate_limited' }, { status: 429 })
+      }
+      if (apiError.status === 529) {
+        return NextResponse.json({ message: 'AI service temporarily overloaded', code: 'model_unavailable' }, { status: 503 })
+      }
+      if (apiError.status === 400) {
+        return NextResponse.json({ message: 'Invalid request to AI service', code: 'invalid_request' }, { status: 400 })
+      }
     }
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 })
+
+    if (error instanceof Error && error.message.includes('API key')) {
+      return NextResponse.json({ message: 'AI service configuration error', code: 'config_error' }, { status: 500 })
+    }
+    return NextResponse.json({ message: 'Internal server error', code: 'server_error' }, { status: 500 })
   }
 }
