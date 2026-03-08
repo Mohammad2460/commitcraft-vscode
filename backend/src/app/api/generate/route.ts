@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
 import { validateApiKey, checkQuota, logUsage } from '@/lib/auth'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 interface GenerateRequest {
   diff: string
@@ -16,6 +13,26 @@ interface GenerateResponse {
   body: string
   bullets: string[]
   generationsRemaining: number
+}
+
+interface OpenAIErrorResponse {
+  error?: {
+    message?: string
+    code?: string
+  }
+}
+
+interface OpenAIChatCompletionResponse {
+  choices?: Array<{
+    message?: {
+      content?: string | null
+    }
+  }>
+  usage?: {
+    prompt_tokens?: number
+    completion_tokens?: number
+    total_tokens?: number
+  }
 }
 
 function buildPrompt(params: GenerateRequest): string {
@@ -87,7 +104,7 @@ Respond with ONLY this JSON (no markdown fences):
   throw new Error(`Unhandled type: ${type}`)
 }
 
-function parseClaudeResponse(text: string): { title: string; bullets: string[] } {
+function parseModelResponse(text: string): { title: string; bullets: string[] } {
   try {
     const cleaned = text.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '')
     const json = JSON.parse(cleaned)
@@ -102,6 +119,60 @@ function parseClaudeResponse(text: string): { title: string; bullets: string[] }
       bullets: lines.slice(1).filter(l => l.trim()).map(l => l.replace(/^[-•*]\s*/, ''))
     }
   }
+}
+
+async function generateWithOpenAI(prompt: string, type: GenerateRequest['type']) {
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) {
+    throw new Error('Missing OpenAI API key')
+  }
+
+  const model = process.env.OPENAI_MODEL ?? 'gpt-4o-mini'
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model,
+      temperature: 0.2,
+      max_tokens: type === 'commit' ? 512 : 1024,
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: 'You generate git commit messages, PR descriptions, and changelog entries. Return valid JSON only.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ]
+    })
+  })
+
+  if (!response.ok) {
+    let errorData: OpenAIErrorResponse = {}
+    try {
+      errorData = await response.json() as OpenAIErrorResponse
+    } catch {
+      // Ignore parse failures and fall back to the HTTP status.
+    }
+
+    throw {
+      status: response.status,
+      message: errorData.error?.message ?? `OpenAI request failed with status ${response.status}`,
+      code: errorData.error?.code
+    }
+  }
+
+  const data = await response.json() as OpenAIChatCompletionResponse
+  const text = data.choices?.[0]?.message?.content ?? ''
+  const totalTokens = data.usage?.total_tokens
+    ?? ((data.usage?.prompt_tokens ?? 0) + (data.usage?.completion_tokens ?? 0))
+
+  return { text, totalTokens }
 }
 
 export async function POST(req: NextRequest) {
@@ -157,17 +228,11 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(body)
 
-    const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: body.type === 'commit' ? 512 : 1024,
-      messages: [{ role: 'user', content: prompt }]
-    })
-
-    const responseText = message.content[0].type === 'text' ? message.content[0].text : ''
-    const parsed = parseClaudeResponse(responseText)
+    const completion = await generateWithOpenAI(prompt, body.type)
+    const parsed = parseModelResponse(completion.text)
 
     // Log usage
-    await logUsage(auth.userId, body.type, message.usage.input_tokens + message.usage.output_tokens)
+    await logUsage(auth.userId, body.type, completion.totalTokens)
 
     const response: GenerateResponse = {
       title: parsed.title,
@@ -181,13 +246,13 @@ export async function POST(req: NextRequest) {
   } catch (error: unknown) {
     console.error('[generate] Error:', error)
 
-    // Handle Anthropic API errors specifically
+    // Handle OpenAI API errors specifically
     if (error && typeof error === 'object' && 'status' in error) {
-      const apiError = error as { status: number; message: string }
+      const apiError = error as { status: number; message: string; code?: string }
       if (apiError.status === 429) {
         return NextResponse.json({ message: 'AI service rate limit reached, please try again', code: 'rate_limited' }, { status: 429 })
       }
-      if (apiError.status === 529) {
+      if (apiError.status >= 500) {
         return NextResponse.json({ message: 'AI service temporarily overloaded', code: 'model_unavailable' }, { status: 503 })
       }
       if (apiError.status === 400) {
