@@ -14,10 +14,10 @@ export async function sendApiKeyEmail(email: string, apiKey: string): Promise<vo
         <div style="background: #f5f5f5; border-radius: 8px; padding: 20px; margin: 24px 0;">
           <code style="font-size: 18px; color: #1a1a1a; word-break: break-all;">${apiKey}</code>
         </div>
-        <p style="color: #555;">You have <strong>20 free generations per month</strong>.</p>
+        <p style="color: #555;">Free plan: <strong>20 generations per month</strong>. Check your current usage anytime in VS Code via <code>Ctrl+Shift+P → CommitCraft: Show Usage</code>.</p>
         <p style="color: #555;">Need unlimited? <a href="https://serenitymind3.gumroad.com/l/opqpxp" style="color: #6366f1;">Upgrade to Pro for $4.99/month →</a></p>
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 32px 0;" />
-        <p style="color: #999; font-size: 14px;">Keep this key safe. If you lose it, just register again with the same email to get it back.</p>
+        <p style="color: #999; font-size: 14px;">Keep this key safe — it's your login. Lost it? Just sign in again with this email to retrieve it.</p>
       </div>
     `
   })

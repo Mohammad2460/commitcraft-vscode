@@ -92,7 +92,7 @@ Or install directly: [VS Code Marketplace](https://marketplace.visualstudio.com/
 | **Free** | $0/month | 20/month |
 | **Pro** | $4.99/month | Unlimited |
 
-No credit card required to start. [Upgrade to Pro →](https://commitcraft.ai/upgrade)
+No credit card required to start. [Upgrade to Pro →](https://serenitymind3.gumroad.com/l/opqpxp)
 
 ---
 
@@ -151,14 +151,14 @@ Click **Regenerate** for a new suggestion, or edit it directly in the panel.
 No — it requires an internet connection to call the AI API.
 
 **How do I cancel Pro?**
-Email support@commitcraft.ai or manage at [commitcraft.ai/dashboard](https://commitcraft.ai/dashboard).
+Email mohammad1820@icloud.com or manage at [commitcraft-landing.vercel.app/dashboard](https://commitcraft-landing.vercel.app/dashboard).
 
 ---
 
 ## 📞 Support
 
-- 🌐 Website: [commitcraft.ai](https://commitcraft.ai)
-- 📧 Email: support@commitcraft.ai
+- 🌐 Website: [commitcraft-landing.vercel.app](https://commitcraft-landing.vercel.app)
+- 📧 Email: mohammad1820@icloud.com
 - 🐛 Issues: [GitHub Issues](https://github.com/commitcraftai/commitcraft-vscode/issues)
 
 ---

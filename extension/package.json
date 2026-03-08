@@ -2,7 +2,7 @@
   "name": "commitcraft-ai",
   "displayName": "CommitCraft - AI Git Commit Messages",
   "description": "AI-powered git commit messages, PR descriptions & changelogs in one click. Conventional commits, GitMoji & more. Powered by Claude AI. Free tier included.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "CommitCraftAI",
   "repository": {
     "type": "git",
