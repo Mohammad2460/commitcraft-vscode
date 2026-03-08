@@ -1,4 +1,13 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'AI Git Commit Message Generator for VS Code | CommitCraft AI',
+  description: 'Generate perfect git commit messages, PR descriptions & changelogs from your diff in one click. VS Code extension powered by Claude AI. Free: 20/month. Pro: $4.99/month.',
+  alternates: {
+    canonical: 'https://commitcraft-landing.vercel.app',
+  },
+}
 
 const INSTALL_URL = 'https://marketplace.visualstudio.com/items?itemName=CommitCraftAI.commitcraft-ai'
 const GITHUB_URL = 'https://github.com/Mohammad2460/commitcraft-vscode'
@@ -76,9 +85,8 @@ export default function HomePage() {
           fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em',
           marginBottom: '24px', color: '#f0f0f0',
         }}>
-          Stop writing<br />
-          <span className="gradient-text">bad commit</span><br />
-          messages
+          <span className="gradient-text">AI Git Commit Message</span><br />
+          Generator for VS Code
         </h1>
 
         {/* Subtext */}
@@ -87,7 +95,7 @@ export default function HomePage() {
           marginBottom: '40px', maxWidth: '560px', margin: '0 auto 40px',
           lineHeight: 1.7,
         }}>
-          CommitCraft AI reads your git diff and generates perfect conventional commit messages in one click — right inside VS Code.
+          Stop writing &ldquo;fix stuff&rdquo;. CommitCraft reads your staged diff and generates perfect conventional commit messages in one click.
         </p>
 
         {/* CTA buttons */}
@@ -134,6 +142,10 @@ export default function HomePage() {
 
         <p className="hero-animate-4" style={{ fontSize: '13px', color: '#555', marginTop: '4px' }}>
           20 free generations/month · No credit card required
+        </p>
+
+        <p style={{ color: '#888', fontSize: '15px', textAlign: 'center', maxWidth: '600px', margin: '24px auto 0' }}>
+          CommitCraft AI is a VS Code extension that automatically generates conventional commit messages, PR descriptions, and changelog entries from your git diff. Powered by Claude AI, it supports Conventional Commits format, GitMoji, and Simple styles — free for 20 generations/month, Pro for $4.99/month.
         </p>
 
         {/* Animated terminal */}
@@ -419,7 +431,7 @@ export default function HomePage() {
               }}>
                 {f.icon}
               </div>
-              <h3 style={{ fontWeight: 700, fontSize: '15px', marginBottom: '10px', color: '#f0f0f0' }}>{f.title}</h3>
+              <h3 style={{ fontWeight: 700, fontSize: '16px', marginBottom: '10px', color: '#f0f0f0' }}>{f.title}</h3>
               <p style={{ color: '#666', fontSize: '13px', lineHeight: 1.7 }}>{f.desc}</p>
             </div>
           ))}
@@ -639,6 +651,70 @@ export default function HomePage() {
         >
           Install Free — VS Code Marketplace
         </a>
+      </section>
+
+      {/* Blog Preview Section */}
+      <section style={{ maxWidth: '900px', margin: '0 auto 80px', padding: '0 24px' }}>
+        <h2 style={{ textAlign: 'center', fontSize: '28px', fontWeight: 800, marginBottom: '12px', color: '#f0f0f0' }}>
+          Learn Git Best Practices
+        </h2>
+        <p style={{ textAlign: 'center', color: '#888', marginBottom: '40px', fontSize: '15px' }}>
+          Free guides on writing better commit messages and improving your git workflow
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+          {[
+            {
+              title: 'How to Write Better Git Commit Messages',
+              excerpt: 'The complete guide to writing meaningful commits that your future self will thank you for.',
+              slug: 'how-to-write-better-git-commit-messages',
+              readTime: '10 min read',
+            },
+            {
+              title: 'Conventional Commits: Complete Guide',
+              excerpt: 'Learn the standard that top engineering teams use to structure their commit history.',
+              slug: 'conventional-commits-guide',
+              readTime: '8 min read',
+            },
+            {
+              title: 'Git Commit Best Practices for Teams',
+              excerpt: 'A practical checklist for teams who want consistent, meaningful git history.',
+              slug: 'git-commit-best-practices',
+              readTime: '7 min read',
+            },
+          ].map(post => (
+            <a
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              style={{
+                display: 'block',
+                background: '#111',
+                border: '1px solid #1e1e1e',
+                borderRadius: '12px',
+                padding: '24px',
+                textDecoration: 'none',
+                transition: 'border-color 0.2s, transform 0.2s',
+              }}
+            >
+              <div style={{ color: '#6366f1', fontSize: '12px', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                {post.readTime}
+              </div>
+              <h3 style={{ color: '#f0f0f0', fontWeight: 700, fontSize: '16px', marginBottom: '8px', lineHeight: 1.4 }}>
+                {post.title}
+              </h3>
+              <p style={{ color: '#666', fontSize: '14px', lineHeight: 1.6, margin: 0 }}>
+                {post.excerpt}
+              </p>
+              <div style={{ color: '#6366f1', fontSize: '14px', marginTop: '16px', fontWeight: 500 }}>
+                Read article →
+              </div>
+            </a>
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '32px' }}>
+          <a href="/blog" style={{ color: '#6366f1', fontSize: '15px', fontWeight: 500 }}>
+            View all articles →
+          </a>
+        </div>
       </section>
 
       {/* ─── FOOTER ─── */}

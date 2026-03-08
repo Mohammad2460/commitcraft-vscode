@@ -1,14 +1,86 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'CommitCraft AI — AI-Powered Git Commit Messages',
-  description: 'Generate perfect git commit messages, PR descriptions & changelogs instantly from your code diff. VS Code extension powered by Claude AI. Free tier available.',
-  keywords: 'git commit message generator, VS Code extension, AI commit, conventional commits, PR description generator',
+  metadataBase: new URL('https://commitcraft-landing.vercel.app'),
+  title: {
+    default: 'CommitCraft AI — AI Git Commit Message Generator for VS Code',
+    template: '%s | CommitCraft AI',
+  },
+  description: 'Generate perfect git commit messages, PR descriptions & changelogs instantly from your code diff. VS Code extension powered by Claude AI. Free tier: 20 generations/month.',
+  keywords: ['git commit message generator', 'ai commit message', 'conventional commits generator', 'vscode extension', 'git commit ai', 'commit message generator', 'pr description generator'],
+  authors: [{ name: 'CommitCraft AI' }],
+  creator: 'CommitCraft AI',
   openGraph: {
-    title: 'CommitCraft AI',
-    description: 'Generate perfect git commit messages with one click',
+    title: 'CommitCraft AI — AI Git Commit Message Generator for VS Code',
+    description: 'Generate perfect git commit messages from your diff in one click. Free tier available.',
+    url: 'https://commitcraft-landing.vercel.app',
+    siteName: 'CommitCraft AI',
     type: 'website',
-  }
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CommitCraft AI — AI Git Commit Message Generator',
+    description: 'Generate perfect git commit messages from your diff in one click.',
+    creator: '@commitcraftai',
+  },
+  alternates: {
+    canonical: 'https://commitcraft-landing.vercel.app',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      name: 'CommitCraft AI',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Visual Studio Code',
+      offers: [
+        {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          name: 'Free',
+          description: '20 generations per month',
+        },
+        {
+          '@type': 'Offer',
+          price: '4.99',
+          priceCurrency: 'USD',
+          name: 'Pro',
+          description: 'Unlimited generations',
+        },
+      ],
+      url: 'https://marketplace.visualstudio.com/items?itemName=CommitCraftAI.commitcraft-ai',
+      description: 'AI-powered git commit message generator for VS Code. Generates conventional commits, PR descriptions & changelogs from your code diff.',
+      screenshot: 'https://commitcraft-landing.vercel.app/opengraph-image',
+      featureList: ['Conventional Commits', 'GitMoji', 'PR Descriptions', 'Changelog Entries'],
+    },
+    {
+      '@type': 'Organization',
+      name: 'CommitCraft AI',
+      url: 'https://commitcraft-landing.vercel.app',
+      logo: 'https://commitcraft-landing.vercel.app/opengraph-image',
+      contactPoint: {
+        '@type': 'ContactPoint',
+        email: 'mohammad1820@icloud.com',
+        contactType: 'customer support',
+      },
+    },
+  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -188,7 +260,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   )
 }
