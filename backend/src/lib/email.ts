@@ -4,7 +4,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendApiKeyEmail(email: string, apiKey: string): Promise<void> {
   await resend.emails.send({
-    from: 'CommitCraft AI <noreply@commitcraft.ai>',
+    from: 'CommitCraft AI <noreply@appyfast.dev>',
     to: email,
     subject: 'Your CommitCraft API Key',
     html: `

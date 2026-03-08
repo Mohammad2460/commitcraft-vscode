@@ -1,25 +1,52 @@
 {
   "name": "commitcraft-ai",
-  "displayName": "CommitCraft AI",
-  "description": "AI-powered git commit messages, PR descriptions & changelogs — generated instantly from your diff",
+  "displayName": "CommitCraft - AI Git Commit Messages",
+  "description": "AI-powered git commit messages, PR descriptions & changelogs in one click. Conventional commits, GitMoji & more. Powered by Claude AI. Free tier included.",
   "version": "0.1.0",
   "publisher": "CommitCraftAI",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mohammad2460/commitcraft-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/Mohammad2460/commitcraft-vscode/issues"
+  },
+  "homepage": "https://commitcraft.ai",
   "engines": {
     "vscode": "^1.85.0"
   },
-  "categories": [
-    "Other",
-    "SCM Providers"
-  ],
+  "categories": ["SCM Providers", "Other"],
   "keywords": [
     "git",
     "commit",
     "ai",
     "commit message",
-    "pr description",
-    "claude",
+    "git commit",
     "conventional commits",
-    "changelog"
+    "ai commit",
+    "commit generator",
+    "gitmoji",
+    "changelog",
+    "pr description",
+    "pull request",
+    "git automation",
+    "commit message generator",
+    "auto commit",
+    "semantic commits",
+    "git workflow",
+    "code review",
+    "git tools",
+    "scm",
+    "productivity",
+    "claude",
+    "openai",
+    "copilot alternative",
+    "git history",
+    "commit helper",
+    "devtools",
+    "git message",
+    "version control",
+    "diff analysis"
   ],
   "icon": "images/icon.png",
   "activationEvents": [],
