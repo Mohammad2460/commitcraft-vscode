@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
+import { validateApiKey, checkQuota, logUsage } from '@/lib/auth'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -105,8 +106,22 @@ function parseClaudeResponse(text: string): { title: string; bullets: string[] }
 
 export async function POST(req: NextRequest) {
   try {
-    // For now (Task 1), no auth — we'll add it in Task 2
-    // Just validate input and call Claude
+    // Validate API key
+    const auth = await validateApiKey(req)
+    if (!auth.success) {
+      return NextResponse.json({ message: auth.message }, { status: auth.status })
+    }
+
+    // Check quota
+    const quota = await checkQuota(auth.userId, auth.tier)
+    if (!quota.allowed) {
+      return NextResponse.json({
+        message: 'Monthly generation limit reached. Upgrade to Pro for unlimited generations.',
+        code: 'quota_exceeded',
+        used: quota.used,
+        limit: quota.limit
+      }, { status: 402 })
+    }
 
     const body = await req.json() as GenerateRequest
 
@@ -151,11 +166,14 @@ export async function POST(req: NextRequest) {
     const responseText = message.content[0].type === 'text' ? message.content[0].text : ''
     const parsed = parseClaudeResponse(responseText)
 
+    // Log usage
+    await logUsage(auth.userId, body.type, message.usage.input_tokens + message.usage.output_tokens)
+
     const response: GenerateResponse = {
       title: parsed.title,
       body: parsed.bullets.join('\n'),
       bullets: parsed.bullets,
-      generationsRemaining: -1 // Will be real value after auth is added in Task 2
+      generationsRemaining: auth.tier === 'pro' ? -1 : quota.limit - quota.used - 1
     }
 
     return NextResponse.json(response)
