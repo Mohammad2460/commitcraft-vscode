@@ -32,6 +32,6 @@ export async function showUsageCommand(authService: AuthService): Promise<void> 
   )
 
   if (action === upgradeLabel) {
-    vscode.env.openExternal(vscode.Uri.parse('https://commitcraft.ai/upgrade'))
+    vscode.env.openExternal(vscode.Uri.parse('https://serenitymind3.gumroad.com/l/opqpxp'))
   }
 }

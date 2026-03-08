@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     const dodoApiKey = process.env.DODO_API_KEY
     const dodoProductId = process.env.DODO_PRODUCT_ID
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://commitcraft.ai'
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://commitcraft-landing.vercel.app'
 
     if (!dodoApiKey || !dodoProductId) {
       return NextResponse.json({ message: 'Payment service not configured' }, { status: 500 })

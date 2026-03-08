@@ -568,7 +568,7 @@ export default function HomePage() {
           {
             id: 'faq5',
             q: 'How do I cancel my Pro subscription?',
-            a: 'Email us at support@commitcraft.ai or visit your dashboard. Cancellations take effect at the end of your current billing period.',
+            a: 'Email us at mohammad1820@icloud.com or visit your dashboard. Cancellations take effect at the end of your current billing period.',
           },
         ].map((item, i) => (
           <div
@@ -654,7 +654,7 @@ export default function HomePage() {
         <span style={{ color: '#2a2a2a' }}>·</span>
         <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#555', fontSize: '13px' }}>GitHub</a>
         <span style={{ color: '#2a2a2a' }}>·</span>
-        <a href="mailto:support@commitcraft.ai" style={{ color: '#555', fontSize: '13px' }}>support@commitcraft.ai</a>
+        <a href="mailto:mohammad1820@icloud.com" style={{ color: '#555', fontSize: '13px' }}>mohammad1820@icloud.com</a>
       </footer>
 
     </main>

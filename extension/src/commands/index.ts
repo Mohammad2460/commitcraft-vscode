@@ -35,7 +35,7 @@ export function registerCommands(
       showUsageCommand(authService)
     ),
     vscode.commands.registerCommand('commitcraft.upgrade', () => {
-      vscode.env.openExternal(vscode.Uri.parse('https://commitcraft.ai/upgrade'))
+      vscode.env.openExternal(vscode.Uri.parse('https://serenitymind3.gumroad.com/l/opqpxp'))
     }),
   ]
 }
