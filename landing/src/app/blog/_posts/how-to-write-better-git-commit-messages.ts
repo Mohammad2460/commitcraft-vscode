@@ -1,4 +1,4 @@
-import type { BlogPost } from './index'
+import type { BlogPost } from './types'
 
 export const post: BlogPost = {
   slug: 'how-to-write-better-git-commit-messages',

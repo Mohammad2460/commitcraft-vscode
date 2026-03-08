@@ -7,9 +7,8 @@ export async function generateStaticParams() {
   return allPosts.map(post => ({ slug: post.slug }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = getPostBySlug(params.slug)
   if (!post) return { title: 'Post Not Found' }
   return {
     title: `${post.title} | CommitCraft AI`,
@@ -71,9 +70,8 @@ function renderSection(section: PostSection, index: number): React.ReactNode {
   }
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+export default function BlogPost({ params }: { params: { slug: string } }) {
+  const post = getPostBySlug(params.slug)
   if (!post) notFound()
 
   // JSON-LD for articles
