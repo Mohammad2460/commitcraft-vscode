@@ -67,11 +67,11 @@ export async function checkQuota(userId: string, tier: 'free' | 'pro'): Promise<
   if (error) {
     // On error, allow but log
     console.error('[checkQuota] Error:', error)
-    return { allowed: true, used: 0, limit: 20 }
+    return { allowed: true, used: 0, limit: 5 }
   }
 
   const used = count ?? 0
-  const limit = 20
+  const limit = 5
   return { allowed: used < limit, used, limit }
 }
 

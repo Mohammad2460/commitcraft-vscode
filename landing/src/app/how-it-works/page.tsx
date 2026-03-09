@@ -460,7 +460,7 @@ export default function HowItWorksPage() {
           Ready to auto-generate your commits?
         </h2>
         <p style={{ color: '#666', fontSize: '16px', marginBottom: '32px', maxWidth: '400px', margin: '0 auto 32px' }}>
-          Install CommitCraft AI and get 20 free generations per month. No API key needed, no config required.
+          Install CommitCraft AI and get 5 free generations per month. No API key needed, no config required.
         </p>
         <a
           href={INSTALL_URL}

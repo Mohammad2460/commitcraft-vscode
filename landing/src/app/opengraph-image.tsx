@@ -67,7 +67,7 @@ export default function OGImage() {
 
       {/* Stats pills */}
       <div style={{ display: 'flex', gap: 16 }}>
-        {['Claude AI Powered', 'Free: 20/month', 'Pro: $4.99/mo'].map(stat => (
+        {['Claude AI Powered', 'Free: 5/month', 'Pro: $4.99/mo'].map(stat => (
           <div key={stat} style={{
             background: '#111',
             border: '1px solid #333',

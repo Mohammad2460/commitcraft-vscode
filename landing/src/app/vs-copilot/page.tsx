@@ -62,7 +62,7 @@ const tableRows = [
   },
   {
     feature: 'Free tier',
-    commitcraft: { value: '20 generations/month free', positive: true },
+    commitcraft: { value: '5 generations/month free', positive: true },
     copilot: { value: '2,000 completions/month free', positive: true },
   },
   {
@@ -353,7 +353,7 @@ export default function VsCopilotPage() {
             <strong style={{ color: '#f0f0f0' }}>They&apos;re not competitors.</strong> GitHub Copilot helps you write code. CommitCraft AI helps you document what you wrote. Most developers who use CommitCraft also use Copilot — they serve completely different moments in the development workflow.
           </p>
           <p style={{ color: '#aaa', fontSize: '15px', lineHeight: 1.85, marginBottom: '20px' }}>
-            If you already pay for Copilot and want better commit messages, CommitCraft&apos;s free tier (20 generations/month) is worth installing alongside it. The $4.99/month Pro plan is about half the cost of Copilot for what it does — and it does its one job significantly better than Copilot&apos;s commit suggestion feature.
+            If you already pay for Copilot and want better commit messages, CommitCraft&apos;s free tier (5 generations/month) is worth installing alongside it. The $4.99/month Pro plan is about half the cost of Copilot for what it does — and it does its one job significantly better than Copilot&apos;s commit suggestion feature.
           </p>
           <p style={{ color: '#aaa', fontSize: '15px', lineHeight: 1.85, marginBottom: 0 }}>
             If you can&apos;t afford both and need to pick one: choose CommitCraft if git history and documentation quality matter to your team. Choose Copilot if you want AI assistance while actively writing code.
@@ -410,7 +410,7 @@ export default function VsCopilotPage() {
           color: '#818cf8', padding: '5px 14px', borderRadius: '100px',
           fontSize: '12px', fontWeight: 500, marginBottom: '24px',
         }}>
-          20 free generations/month · No credit card
+          5 free generations/month · No credit card
         </div>
         <h2 style={{ fontSize: 'clamp(26px, 4vw, 42px)', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: '12px' }}>
           Try CommitCraft free alongside Copilot

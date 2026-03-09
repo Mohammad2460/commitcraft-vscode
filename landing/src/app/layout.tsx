@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     default: 'CommitCraft AI — AI Git Commit Message Generator for VS Code',
     template: '%s | CommitCraft AI',
   },
-  description: 'Generate perfect git commit messages, PR descriptions & changelogs instantly from your code diff. VS Code extension powered by Claude AI. Free tier: 20 generations/month.',
+  description: 'Generate perfect git commit messages, PR descriptions & changelogs instantly from your code diff. VS Code extension powered by Claude AI. Free tier: 5 generations/month.',
   keywords: ['git commit message generator', 'ai commit message', 'conventional commits generator', 'vscode extension', 'git commit ai', 'commit message generator', 'pr description generator'],
   authors: [{ name: 'CommitCraft AI' }],
   creator: 'CommitCraft AI',
@@ -56,7 +56,7 @@ const jsonLd = {
           price: '0',
           priceCurrency: 'USD',
           name: 'Free',
-          description: '20 generations per month',
+          description: '5 generations per month',
         },
         {
           '@type': 'Offer',

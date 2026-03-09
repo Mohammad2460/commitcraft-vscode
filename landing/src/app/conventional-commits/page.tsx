@@ -389,7 +389,7 @@ export default function ConventionalCommitsPage() {
           Start generating conventional commits now
         </h2>
         <p style={{ color: '#666', fontSize: '16px', marginBottom: '32px', maxWidth: '420px', margin: '0 auto 32px' }}>
-          Free tier includes 20 generations per month. No credit card, no setup, no configuration required.
+          Free tier includes 5 generations per month. No credit card, no setup, no configuration required.
         </p>
         <a
           href={INSTALL_URL}

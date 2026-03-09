@@ -127,7 +127,7 @@ export class CommitPanel {
       `<li>${b.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`
     ).join('')
     const quotaHtml = result.generationsRemaining >= 0
-      ? `<div class="quota">Generations remaining: <strong>${result.generationsRemaining}</strong>${result.generationsRemaining <= 5 ? ' <a href="#" onclick="upgrade()">Upgrade to Pro →</a>' : ''}</div>`
+      ? `<div class="quota">Generations remaining: <strong>${result.generationsRemaining}</strong>${result.generationsRemaining <= 2 ? ' <a href="#" onclick="upgrade()">Upgrade to Pro →</a>' : ''}</div>`
       : `<div class="quota">✨ Pro — Unlimited generations</div>`
 
     return `<!DOCTYPE html>

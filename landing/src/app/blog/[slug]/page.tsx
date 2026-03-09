@@ -126,7 +126,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         {/* Bottom CTA */}
         <div style={{ marginTop: '60px', paddingTop: '40px', borderTop: '1px solid #1e1e1e' }}>
           <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '12px' }}>Try CommitCraft AI Free</h2>
-          <p style={{ color: '#888', marginBottom: '20px' }}>Generate conventional commits, PR descriptions & changelogs from your diff in one click. 20 free generations/month.</p>
+          <p style={{ color: '#888', marginBottom: '20px' }}>Generate conventional commits, PR descriptions & changelogs from your diff in one click. 5 free generations/month.</p>
           <a href="https://marketplace.visualstudio.com/items?itemName=CommitCraftAI.commitcraft-ai" style={{ display: 'inline-block', background: '#6366f1', color: 'white', padding: '12px 24px', borderRadius: '8px', fontWeight: 700, textDecoration: 'none' }}>
             Install for VS Code — Free
           </a>

@@ -55,15 +55,11 @@ export async function generateCommitCommand(
         return
       }
 
-      const proceed = await vscode.window.showWarningMessage(
-        'CommitCraft: No staged changes. Tip: staging your changes first gives better results.',
-        'Generate Anyway',
-        'Cancel'
-      )
-      if (proceed !== 'Generate Anyway') return
-
       diff = await gitService.getUnstagedDiff()
       usingUnstaged = true
+      void vscode.window.showInformationMessage(
+        'CommitCraft: No staged changes found. Using unstaged changes instead.'
+      )
     }
 
     if (!diff || diff.trim() === '') {

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'AI Git Commit Message Generator for VS Code | CommitCraft AI',
-  description: 'Generate perfect git commit messages, PR descriptions & changelogs from your diff in one click. VS Code extension powered by Claude AI. Free: 20/month. Pro: $4.99/month.',
+  description: 'Generate perfect git commit messages, PR descriptions & changelogs from your diff in one click. VS Code extension powered by Claude AI. Free: 5/month. Pro: $4.99/month.',
   alternates: {
     canonical: 'https://commitcraft-landing.vercel.app',
   },
@@ -142,11 +142,11 @@ export default function HomePage() {
         </div>
 
         <p className="hero-animate-4" style={{ fontSize: '13px', color: '#555', marginTop: '4px' }}>
-          20 free generations/month · No credit card required
+          5 free generations/month · No credit card required
         </p>
 
         <p style={{ color: '#888', fontSize: '15px', textAlign: 'center', maxWidth: '600px', margin: '24px auto 0' }}>
-          CommitCraft AI is a VS Code extension that automatically generates conventional commit messages, PR descriptions, and changelog entries from your git diff. Powered by Claude AI, it supports Conventional Commits format, GitMoji, and Simple styles — free for 20 generations/month, Pro for $4.99/month.
+          CommitCraft AI is a VS Code extension that automatically generates conventional commit messages, PR descriptions, and changelog entries from your git diff. Powered by Claude AI, it supports Conventional Commits format, GitMoji, and Simple styles — free for 5 generations/month, Pro for $4.99/month.
         </p>
 
         {/* Animated terminal */}
@@ -461,7 +461,7 @@ export default function HomePage() {
             <div style={{ color: '#555', fontSize: '14px', marginBottom: '28px' }}>forever · no card needed</div>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '11px', marginBottom: '28px' }}>
               {[
-                '20 generations/month',
+                '5 generations/month',
                 'All 3 generation types',
                 'All commit styles',
                 'VS Code integration',
