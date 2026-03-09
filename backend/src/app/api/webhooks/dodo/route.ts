@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createHmac, timingSafeEqual } from 'crypto'
 import { getSupabaseAdmin } from '@/lib/supabase'
 
+export const dynamic = 'force-dynamic'
+
 function verifyDodoSignature(body: string, signature: string, secret: string): boolean {
   try {
     const hmac = createHmac('sha256', secret)

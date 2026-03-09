@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { validateApiKey, checkQuota, logUsage } from '@/lib/auth'
 
+export const dynamic = 'force-dynamic'
+
 interface GenerateRequest {
   diff: string
   style: 'conventional' | 'gitmoji' | 'simple'

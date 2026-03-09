@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 
+export const dynamic = 'force-dynamic'
+
 // Gumroad sends form-encoded POST data (not JSON)
 // Event types: sale, subscription_ended, subscription_restarted, subscription_cancelled
 
